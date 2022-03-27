@@ -31,6 +31,9 @@ export default function ResponseForm({
     if (usedCodenames.includes(codename)) {
       setCodename(codename);
       setIsLoggedIn(true);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -47,7 +50,9 @@ export default function ResponseForm({
   return (
     <Flex col align="center" gap={sp("sm")}>
       {!isLoggedIn && (
-        <SignInStep {...{ usedCodenames, handleNew, handleReturning }} />
+        <SignInStep
+          {...{ usedCodenames, onNew: handleNew, onReturning: handleReturning }}
+        />
       )}
       {!!isLoggedIn && (
         <ResponseStep {...{ groupData, codename, onSave: handleSave }} />

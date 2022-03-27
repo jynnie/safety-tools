@@ -21,7 +21,7 @@ const NO_GROUP_ERROR = Error("No group found from id");
 export default function GroupPage() {
   const db = useContext(FirebaseContext).db;
   const router = useRouter();
-  const { id: rawId, view } = router.query;
+  const { id: rawId } = router.query;
   const groupId = Array.isArray(rawId) ? rawId[0] : rawId;
 
   const [isFillingOut, setIsFillingOut] = useState<boolean>(false);
@@ -40,7 +40,11 @@ export default function GroupPage() {
     router.push("/");
     return;
   } else if (groupData === undefined) {
-    return <>Loading...</>;
+    return (
+      <Flex width="100vw" height="100vh" center>
+        Loading...
+      </Flex>
+    );
   }
 
   const { name, id } = groupData as GroupData;

@@ -4,33 +4,41 @@ import { getUniqueCodename } from "lib/codenames";
 
 export default function SignInStep({
   usedCodenames,
-  handleNew,
-  handleReturning,
+  onNew,
+  onReturning,
 }: {
   usedCodenames: string[];
-  handleNew: (codename: string) => void;
-  handleReturning: (codename: string) => void;
+  onNew: (codename: string) => void;
+  onReturning: (codename: string) => boolean;
 }) {
   const [isReturning, setIsReturning] = useState<boolean>(true);
   const [returningCodename, setReturningCodename] = useState<string>("");
   const [newCodename, setNewCodename] = useState<string>(
     getUniqueCodename(usedCodenames),
   );
+  const [error, setError] = useState<null | string>(null);
 
   function handleRandomCodename() {
     setNewCodename(getUniqueCodename(usedCodenames));
   }
 
+  const setTab = (value: boolean) => () => {
+    setIsReturning(value);
+    setError(null);
+  };
+
+  function handleReturning(codename: string) {
+    const res = onReturning(codename);
+    if (!res) setError("No one here goes by that");
+  }
+
   return (
     <Flex col align="center" gap="var(--sp-sm)">
       <Menu horizontal>
-        <Menu.Item selected={isReturning} onClick={() => setIsReturning(true)}>
+        <Menu.Item selected={isReturning} onClick={setTab(true)}>
           Returning
         </Menu.Item>
-        <Menu.Item
-          selected={!isReturning}
-          onClick={() => setIsReturning(false)}
-        >
+        <Menu.Item selected={!isReturning} onClick={setTab(false)}>
           New
         </Menu.Item>
       </Menu>
@@ -52,7 +60,7 @@ export default function SignInStep({
               >
                 New Codename
               </Button>
-              <Button onClick={() => handleNew(newCodename)}>Register</Button>
+              <Button onClick={() => onNew(newCodename)}>Register</Button>
             </Flex>
           </>
         )}
@@ -65,6 +73,11 @@ export default function SignInStep({
               value={returningCodename}
               onChange={(e) => setReturningCodename(e.target.value)}
             />
+            {!!error && (
+              <Text color="red" intent="danger">
+                {error}
+              </Text>
+            )}
             <Button onClick={() => handleReturning(returningCodename)}>
               Sign In
             </Button>
