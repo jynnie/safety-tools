@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import styles from "../styles/Group.module.scss";
+import homestyles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import type { GroupData, Ratings } from "data.model";
 import Results from "components/Results";
@@ -71,47 +72,55 @@ export default function GroupPage() {
       <Head>
         <title>{name} | RPG Safety Tools</title>
       </Head>
-      <Flex col className={styles.container}>
-        <Text h2 textAlign="center">
-          {name}
-        </Text>
-        <Text secondary>
-          Anonymously communicate your comfort with various content topics and
-          themes that could show up in play.
-        </Text>
-        <Text secondary>
-          Invite players to fill this out by sending the{" "}
-          <CopyToClipboardWrapper value={link}>
-            <Text is="span" color="blue" className={styles.groupName}>
-              link
-            </Text>
-          </CopyToClipboardWrapper>{" "}
-          to this page.
-        </Text>
-        <Divider xl />
 
-        <Flex col gap="var(--sp-xxl)" width="100%" align="center">
-          {!isFillingOut && (
-            <>
-              <Button intent="secondary" onClick={() => setIsFillingOut(true)}>
-                Fill Out Your Preferences
-              </Button>
-              <Results groupData={groupData as GroupData} />
-            </>
-          )}
+      <main className={homestyles.main}>
+        <Flex col className={styles.container}>
+          <Text h2 textAlign="center">
+            {name}
+          </Text>
+          <Text secondary>
+            Anonymously communicate your comfort with various content topics and
+            themes that could show up in play.
+          </Text>
+          <Text secondary>
+            Invite players to fill this out by sending the{" "}
+            <CopyToClipboardWrapper value={link}>
+              <Text is="span" color="blue" className={styles.groupName}>
+                link
+              </Text>
+            </CopyToClipboardWrapper>{" "}
+            to this page.
+          </Text>
+          <Divider xl />
 
-          {isFillingOut && (
-            <>
-              <Button intent="secondary" onClick={() => setIsFillingOut(false)}>
-                Back
-              </Button>
-              <ResponseForm
-                {...{ groupData: groupData as GroupData, onSave: handleSave }}
-              />
-            </>
-          )}
+          <Flex col gap="var(--sp-xxl)" width="100%" align="center">
+            {!isFillingOut && (
+              <>
+                <Button onClick={() => setIsFillingOut(true)}>
+                  Fill Out Your Preferences
+                </Button>
+                <Results groupData={groupData as GroupData} />
+              </>
+            )}
+
+            {isFillingOut && (
+              <>
+                <Button
+                  intent="secondary"
+                  onClick={() => setIsFillingOut(false)}
+                >
+                  Back
+                </Button>
+                <ResponseForm
+                  {...{ groupData: groupData as GroupData, onSave: handleSave }}
+                />
+              </>
+            )}
+          </Flex>
         </Flex>
-      </Flex>
+      </main>
+
+      <footer className={homestyles.footer}>Powered by 哪吒</footer>
     </>
   );
 }

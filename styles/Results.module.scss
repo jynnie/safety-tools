@@ -5,6 +5,10 @@
   border-radius: var(--radius-rounded);
 }
 
+.rating {
+  border: 1px solid var(--gray-light);
+}
+
 .ratingVote {
   border-radius: var(--radius-round);
   width: var(--sp-lg);

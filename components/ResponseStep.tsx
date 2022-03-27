@@ -81,7 +81,7 @@ function Collapsible({
           appearance="minimal"
           onClick={() => setShow(!show)}
         >
-          {show ? "🔽" : "▶️"}
+          {show ? "▼" : "▶"}
         </Button>
         {header}
       </Flex>
@@ -211,6 +211,7 @@ export default function ResponseStep({
           {RatingOptions.map((r) => (
             <Menu.Item
               key={r}
+              className={styles.rating}
               selected={r === rating}
               onClick={handleToggleRating(r)}
             >
