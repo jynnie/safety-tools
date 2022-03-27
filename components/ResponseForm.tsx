@@ -1,23 +1,6 @@
-import {
-  Box,
-  Button,
-  CopyToClipboardWrapper,
-  Divider,
-  Flex,
-  Menu,
-  Text,
-} from "juniper-ui/dist";
-import { nanoid } from "nanoid";
-import { Database, onValue, ref, set } from "firebase/database";
-import { useContext } from "react";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import styles from "../styles/Group.module.scss";
-import type { NextPage } from "next";
-import { useState, useEffect } from "react";
+import { Flex } from "juniper-ui/dist";
+import { useState } from "react";
 import type { GroupData, Ratings } from "data.model";
-import Results from "components/Results";
-import { getUniqueCodename } from "lib/codenames";
 import SignInStep from "./SignInStep";
 import ResponseStep from "./ResponseStep";
 import { sp } from "styles/utils";

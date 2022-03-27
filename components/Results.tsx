@@ -38,8 +38,8 @@ export default function Results({
     }
   }
   // If a veil is already a line, don't show it
-  allVeils = allVeils.filter((v) =>
-    allLines.find((l) => l.toLowerCase() !== v.toLowerCase()),
+  allVeils = allVeils.filter(
+    (v) => !allLines.find((l) => l.toLowerCase() === v.toLowerCase()),
   );
 
   return (
