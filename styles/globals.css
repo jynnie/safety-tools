@@ -1,16 +1,17 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* Overrides for juniper-ui branding  */
+:root {
+  --font: "Montserrat";
 
-* {
-  box-sizing: border-box;
+  --red-lighter: hsl(0, 100%, 94%);
+  --yellow: hsl(49, 100%, 41%);
+
+  --text-color: var(--gray8);
+
+  --primary-darker: var(--blue-darker);
+  --primary-dark: var(--blue-dark);
+  --primary: var(--blue);
+  --primary-light: var(--blue-light);
+  --primary-lighter: var(--blue-lighter);
 }

@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "firebaseConfig";
 
 import "juniper-ui/dist/style.css";
+import "styles/globals.css";
 
 //* Firebase Setup
 let db: Database;
