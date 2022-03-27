@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^9.6.10",
+    "juniper-ui": "^0.3.6",
     "next": "12.1.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-with-firebase-auth": "^1.4.0",
+    "sass": "^1.49.9"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
