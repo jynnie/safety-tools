@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "juniper-ui/dist";
+import { Box, Button, Divider, Flex, Text } from "juniper-ui/dist";
 import { FirebaseContext } from "./_app";
 import { nanoid } from "nanoid";
 import { ref, set } from "firebase/database";
@@ -46,9 +46,16 @@ const NewToolkit: NextPage = () => {
 
       <main className={styles.main}>
         <Text h1>Safety Tools</Text>
+        <Text secondary>
+          Playing an RPG? Quickly set up anonymous lines {"&"} veils for your
+          group.
+        </Text>
+
+        <Divider lg />
+
         <Flex col gap="var(--sp-sm)" width={300}>
           <input
-            placeholder="Group Name*"
+            placeholder="New Group Name*"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
