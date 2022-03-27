@@ -149,6 +149,8 @@ export default function ResponseStep({
   const [rating, setRating] = useState<Ratings | null>(null);
   const [lines, setLines] = useState<string[]>([]);
   const [veils, setVeils] = useState<string[]>([]);
+  const [customLine, setCustomLine] = useState<string>("");
+  const [customVeil, setCustomVeil] = useState<string>("");
 
   useEffect(() => {
     const response = groupData?.responses?.[codename];
@@ -178,6 +180,20 @@ export default function ResponseStep({
     setVeils((veils) => veils.filter((t) => t !== topic));
     setLines((lines) => [...lines, topic]);
   };
+
+  function handleCustomVeil() {
+    if (!!customVeil) {
+      veils.push(customVeil);
+      setCustomVeil("");
+    }
+  }
+
+  function handleCustomLine() {
+    if (!!customLine) {
+      lines.push(customLine);
+      setCustomLine("");
+    }
+  }
 
   if (!codename) return null;
 
@@ -226,6 +242,16 @@ export default function ResponseStep({
                 />
               ))}
               {veils.length === 0 && <Text fontStyle="italic">-</Text>}
+              <Flex gap={sp("sm")}>
+                <input
+                  placeholder="Custom veil"
+                  value={customVeil}
+                  onChange={(e) => setCustomVeil(e.target.value)}
+                />
+                <Button color="yellow" onClick={handleCustomVeil}>
+                  Add
+                </Button>
+              </Flex>
             </Flex>
           </Flex>
 
@@ -249,6 +275,16 @@ export default function ResponseStep({
                 />
               ))}
               {lines.length === 0 && <Text fontStyle="italic">-</Text>}
+              <Flex gap={sp("sm")}>
+                <input
+                  placeholder="Custom line"
+                  value={customLine}
+                  onChange={(e) => setCustomLine(e.target.value)}
+                />
+                <Button color="red" onClick={handleCustomLine}>
+                  Add
+                </Button>
+              </Flex>
             </Flex>
           </Flex>
         </Grid>
