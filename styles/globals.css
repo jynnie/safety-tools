@@ -15,3 +15,7 @@
   --primary-light: var(--blue-light);
   --primary-lighter: var(--blue-lighter);
 }
+
+input {
+  padding: var(--sp-sm) var(--sp-md);
+}

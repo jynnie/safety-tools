@@ -1,4 +1,4 @@
-import { Button, Flex, Menu, Text } from "juniper-ui/dist";
+import { Box, Button, Flex, Menu, Text } from "juniper-ui/dist";
 import { useState } from "react";
 import { getUniqueCodename } from "lib/codenames";
 
@@ -11,7 +11,7 @@ export default function SignInStep({
   handleNew: (codename: string) => void;
   handleReturning: (codename: string) => void;
 }) {
-  const [isReturning, setIsReturning] = useState<boolean>(false);
+  const [isReturning, setIsReturning] = useState<boolean>(true);
   const [returningCodename, setReturningCodename] = useState<string>("");
   const [newCodename, setNewCodename] = useState<string>(
     getUniqueCodename(usedCodenames),
@@ -24,36 +24,36 @@ export default function SignInStep({
   return (
     <Flex col align="center" gap="var(--sp-sm)">
       <Menu horizontal>
+        <Menu.Item selected={isReturning} onClick={() => setIsReturning(true)}>
+          Returning
+        </Menu.Item>
         <Menu.Item
           selected={!isReturning}
           onClick={() => setIsReturning(false)}
         >
           New
         </Menu.Item>
-        <Menu.Item selected={isReturning} onClick={() => setIsReturning(true)}>
-          Returning
-        </Menu.Item>
       </Menu>
 
       <Flex col align="center" gap="var(--sp-sm)">
         {!isReturning && (
           <>
+            <input
+              id="codename"
+              placeholder="Codename"
+              readOnly
+              value={newCodename}
+            />
             <Flex gap="var(--sp-xs)">
-              <input
-                id="codename"
-                placeholder="Codename"
-                readOnly
-                value={newCodename}
-              />
               <Button
                 color="blue"
                 appearance="outline"
                 onClick={handleRandomCodename}
               >
-                Randomize
+                New Codename
               </Button>
+              <Button onClick={() => handleNew(newCodename)}>Register</Button>
             </Flex>
-            <Button onClick={() => handleNew(newCodename)}>Register</Button>
           </>
         )}
 
