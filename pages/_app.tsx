@@ -9,8 +9,8 @@ import "juniper-ui/dist/style.css";
 //* Firebase Setup
 let db: Database;
 try {
-  initializeApp(firebaseConfig);
-  db = getDatabase();
+  const app = initializeApp(firebaseConfig);
+  db = getDatabase(app);
 } catch (error: any) {
   if (!/already exists/u.test(error.message)) {
     console.error("Firebase admin initialization error", error.stack);
