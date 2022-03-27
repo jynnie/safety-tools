@@ -20,6 +20,7 @@ export default function ResponseForm({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [codename, setCodename] = useState<string>("");
 
+  // FIXME: This feels super insecure
   const usedCodenames = Object.values(groupData?.codenames || []);
 
   function handleNew(codename: string) {

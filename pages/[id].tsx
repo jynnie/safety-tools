@@ -50,6 +50,7 @@ export default function GroupPage() {
   const { name, id } = groupData as GroupData;
   const link = `${document.location.protocol}//${document.location.host}/${id}`;
 
+  // FIXME: This feels super insecure
   async function handleSave(
     codename: string,
     rating: Ratings | null,
