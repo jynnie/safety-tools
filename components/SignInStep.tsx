@@ -2,7 +2,7 @@ import { Button, Flex, Menu, Text } from "juniper-ui/dist";
 import { useState } from "react";
 import { getUniqueCodename } from "lib/codenames";
 
-export default function SignInForm({
+export default function SignInStep({
   usedCodenames,
   handleNew,
   handleReturning,

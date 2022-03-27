@@ -1,4 +1,4 @@
-export const animals = [
+export const ANIMALS = [
   "Aardvark",
   "Albatross",
   "Alligator",
@@ -223,8 +223,8 @@ export const animals = [
 ];
 
 export function getCodename(): string {
-  const randomAnimal1 = animals[Math.floor(animals.length * Math.random())];
-  const randomAnimal2 = animals[Math.floor(animals.length * Math.random())];
+  const randomAnimal1 = ANIMALS[Math.floor(ANIMALS.length * Math.random())];
+  const randomAnimal2 = ANIMALS[Math.floor(ANIMALS.length * Math.random())];
   return randomAnimal1 + randomAnimal2;
 }
 

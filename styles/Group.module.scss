@@ -6,11 +6,7 @@
 }
 
 .groupName {
-  padding: var(--sp-xs) var(--sp-sm);
-  border-radius: var(--radius-rounded);
-
   &:hover {
-    background: var(--gray-lighter);
     font-style: italic;
   }
 }

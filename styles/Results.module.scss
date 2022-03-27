@@ -27,9 +27,37 @@
   background: var(--yellow-lighter);
 }
 
+.topicContainer {
+  flex-shrink: 0;
+}
+
+.topic {
+  padding: 0 var(--sp-xs);
+
+  button {
+    opacity: 0.3;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    border-radius: var(--radius-rounded);
+    background: var(--gray-lighter);
+  }
+}
+
+.minimal {
+  padding: var(--sp-xs);
+}
+
 @media only screen and (max-width: 600px) {
   .container .topicsContainer {
     grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .container .topicContainer {
     width: 100%;
   }
 }

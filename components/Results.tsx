@@ -2,10 +2,7 @@ import { Box, Flex, Grid, Text } from "juniper-ui/dist";
 import styles from "styles/Results.module.scss";
 import React from "react";
 import { GroupData, Ratings } from "data.model";
-
-function sp(size: string): string {
-  return `var(--sp-${size})`;
-}
+import { sp } from "styles/utils";
 
 const RatingOptions = Object.values(Ratings);
 
