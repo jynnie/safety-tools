@@ -37,11 +37,7 @@ const NewToolkit: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>RPG Safety Tools</title>
-        <meta
-          name="description"
-          content="Safety tools, like lines and veils, for TTRPG campaigns. Easy and anonymous."
-        />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <main className={styles.main}>

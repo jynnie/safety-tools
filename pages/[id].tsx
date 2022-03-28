@@ -71,6 +71,7 @@ export default function GroupPage() {
     <>
       <Head>
         <title>{name} | RPG Safety Tools</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <main className={homestyles.main}>
