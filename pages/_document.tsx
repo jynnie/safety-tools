@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Link from "next/link";
 
 export default class MyDocument extends Document {
   render() {
@@ -23,8 +24,12 @@ export default class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
+          <nav>
+            <Link href="/">Safety Tools</Link>
+          </nav>
           <Main />
           <NextScript />
+          <footer>Created by jynnie. Protected by 哪吒.</footer>
         </body>
       </Html>
     );

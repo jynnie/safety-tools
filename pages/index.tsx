@@ -8,6 +8,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import type { NextPage } from "next";
 import { useState } from "react";
+import { sp } from "styles/utils";
 
 const NewToolkit: NextPage = () => {
   const db = useContext(FirebaseContext).db;
@@ -34,22 +35,30 @@ const NewToolkit: NextPage = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>RPG Safety Tools</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main className={styles.main}>
-        <Text h1>Safety Tools</Text>
-        <Text secondary>
-          Playing an RPG? Quickly set up anonymous lines {"&"} veils for your
-          group.
-        </Text>
+      <main>
+        <div className="content">
+          <Text h1>Safety Tools</Text>
+          <Text secondary>
+            Playing a RPG? Quickly set up{" "}
+            <Text span bold>
+              anonymous lines {"&"} veils
+            </Text>{" "}
+            for your group to communicate comfort with various content topics
+            and themes that could show up in play.
+          </Text>
+        </div>
 
-        <Divider lg />
+        <Flex col gap={sp("md")} className="slide">
+          <Text h2 margin={0}>
+            Get Started
+          </Text>
 
-        <Flex col gap="var(--sp-sm)" className="slide">
           <input
             placeholder="New Group Name*"
             value={name}
@@ -57,7 +66,7 @@ const NewToolkit: NextPage = () => {
           />
 
           <Box>
-            <Text h5 intent="secondary" margin={0}>
+            <Text h5 intent="secondary" marginBottom={sp("sm")}>
               Content Warnings
             </Text>
             <textarea
@@ -76,9 +85,7 @@ const NewToolkit: NextPage = () => {
           <Button onClick={handleCreate}>Create</Button>
         </Flex>
       </main>
-
-      <footer className={styles.footer}>Powered by 哪吒</footer>
-    </div>
+    </>
   );
 };
 
