@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+/* Overrides for juniper-ui branding  */
+:root {
+  --font: "Inter";
+
+  --veil: #e1b761;
+  --veil-light: #ffeecd;
+
+  --line: #df7a92;
+  --line-light: #fbdbdf;
+
+  --blue: #81a1d7;
+  --blue-light: #bad5fb;
+  --blue-lighter: #e7eefc;
+
+  --grey-light: #ebeef2;
+
+  --red-lighter: var(--line-light);
+  --yellow: var(--veil);
+
+  --primary-darker: var(--blue-darker);
+  --primary-dark: var(--blue-dark);
+  --primary: var(--blue);
+  --primary-light: var(--blue-light);
+  --primary-lighter: var(--blue-lighter);
+
+  --background: var(--blue-lighter);
+  --text-color0: #000000;
+  --text-color: #000000cc;
+  --text-color-caption: #000000cc;
+}
+
+input {
+  padding: var(--sp-sm) var(--sp-md);
+  border: none;
+  background: var(--grey-light);
+
+  &.light {
+  }
+}
+
+.slide {
+  width: 100vw;
+  max-width: 708px;
+  padding: var(--sp-xl);
+  background: white;
+  border-radius: var(--sp-md);
+  box-shadow: 0px 2px 8px 0px #815b5b26;
+}

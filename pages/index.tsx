@@ -49,7 +49,7 @@ const NewToolkit: NextPage = () => {
 
         <Divider lg />
 
-        <Flex col gap="var(--sp-sm)" width={300}>
+        <Flex col gap="var(--sp-sm)" className="slide">
           <input
             placeholder="New Group Name*"
             value={name}
