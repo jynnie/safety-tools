@@ -1,10 +1,4 @@
-import {
-  Button,
-  CopyToClipboardWrapper,
-  Flex,
-  Menu,
-  Text,
-} from "juniper-ui/dist";
+import { CopyToClipboardWrapper, Flex, Menu, Text } from "juniper-ui/dist";
 import { FirebaseContext } from "./_app";
 import { onValue, ref, set } from "firebase/database";
 import { useContext } from "react";

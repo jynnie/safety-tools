@@ -1,16 +1,12 @@
-import { Button, Divider, Flex, Grid, Menu, Text } from "juniper-ui/dist";
+import { Button, Divider, Flex, Grid, Text } from "juniper-ui/dist";
 import { useState } from "react";
-import { getUniqueCodename } from "lib/codenames";
 import { GroupData, Ratings } from "data.model";
-import { useContext } from "react";
-import { FirebaseContext } from "pages/_app";
 import { useEffect } from "react";
 import styles from "styles/Results.module.scss";
 import { sp } from "styles/utils";
 import { TOPICS, TOPICS_CLOSED_BY_DEFAULT } from "lib/topics";
 import {
   AlertTriangle,
-  Check,
   CheckCircle,
   ChevronDown,
   ChevronRight,
@@ -211,13 +207,13 @@ export default function ResponseStep({
   if (!codename) return null;
 
   return (
-    <Flex col align="flex-start" gap={sp("xxxl")}>
+    <Flex col align="flex-start" gap={sp("xxl")}>
       {/* //* Ratings */}
-      <Flex col gap={sp("md")}>
+      <Flex col>
         <Text h4 margin={0}>
           Rating
         </Text>
-        <Text>If this game was a movie, it would be ideally rated</Text>
+        <Text p>If this game was a movie, it would be ideally rated</Text>
         <Grid colNum={5} gap={sp("sm")}>
           {RatingOptions.map((r) => (
             <Flex
@@ -242,7 +238,7 @@ export default function ResponseStep({
                 Veils
               </Text>
             </Flex>
-            <Text fontSize="var(--font-size-sm)">
+            <Text caption fontSize="var(--font-size-sm)">
               Topics that are soft limits, okay if veiled or offstage
             </Text>
 
@@ -284,7 +280,7 @@ export default function ResponseStep({
                 Lines
               </Text>
             </Flex>
-            <Text fontSize="var(--font-size-sm)">
+            <Text caption fontSize="var(--font-size-sm)">
               Topics that are hard limits, not okay at all, including in
               reference
             </Text>

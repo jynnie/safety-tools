@@ -48,20 +48,22 @@ export default function Results({
     <Flex col align="flex-start" gap={sp("xxxl")}>
       {/* //* Warnings */}
       {!!warnings && (
-        <Flex col gap={sp("md")}>
+        <Flex col>
           <Text h4 margin={0}>
             Content Warnings
           </Text>
-          <Text>{warnings}</Text>
+          <Text p marginBottom={0}>
+            {warnings}
+          </Text>
         </Flex>
       )}
 
       {/* //* Ratings */}
-      <Flex col gap={sp("md")}>
+      <Flex col>
         <Text h4 margin={0}>
           Rating
         </Text>
-        <Text>If this game was a movie, it would be ideally rated</Text>
+        <Text p>If this game was a movie, it would be ideally rated</Text>
         <Grid colNum={5} gap={sp("sm")}>
           {RatingOptions.map((r) => (
             <Flex
