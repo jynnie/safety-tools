@@ -15,7 +15,9 @@
   --blue-lighter: #e7eefc;
 
   --grey-light: #ebeef2;
+  --grey-lighter: #b9c3d338;
 
+  --red: var(--line);
   --red-lighter: var(--line-light);
   --yellow: var(--veil);
 
@@ -74,6 +76,7 @@ textarea {
   background: var(--grey-light);
 
   &.light {
+    background: white;
   }
 }
 
@@ -116,10 +119,12 @@ a:hover {
   .ratingOption {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     border-radius: var(--radius-rounded);
     background: var(--grey-light);
     padding: var(--sp-sm) 0;
+    min-height: var(--sp-x4);
 
     .jnpr-text {
       text-align: center;

@@ -8,6 +8,16 @@ import { useEffect } from "react";
 import styles from "styles/Results.module.scss";
 import { sp } from "styles/utils";
 import { TOPICS, TOPICS_CLOSED_BY_DEFAULT } from "lib/topics";
+import {
+  AlertTriangle,
+  Check,
+  CheckCircle,
+  ChevronDown,
+  ChevronRight,
+  Plus,
+  XOctagon,
+} from "react-feather";
+import cn from "classnames";
 
 const RatingOptions = Object.values(Ratings);
 const TopicKeys = Object.keys(TOPICS);
@@ -32,29 +42,32 @@ function Topic({
       </Text>
       {onVeil && (
         <Button
-          className={styles.minimal}
+          className={styles.round}
           appearance="minimal"
           onClick={onVeil}
+          color="yellow"
         >
-          ☁️
+          <AlertTriangle />
         </Button>
       )}
       {onLine && (
         <Button
-          className={styles.minimal}
+          className={styles.round}
           appearance="minimal"
           onClick={onLine}
+          color="red"
         >
-          ❌
+          <XOctagon />
         </Button>
       )}
       {onOkay && (
         <Button
-          className={styles.minimal}
+          className={styles.round}
           appearance="minimal"
           onClick={onOkay}
+          color="blue"
         >
-          ✅
+          <CheckCircle />
         </Button>
       )}
     </Flex>
@@ -77,11 +90,11 @@ function Collapsible({
     <Flex col className={className}>
       <Flex align="center">
         <Button
-          className={styles.minimal}
+          className={styles.round}
           appearance="minimal"
           onClick={() => setShow(!show)}
         >
-          {show ? "▼" : "▶"}
+          {show ? <ChevronDown /> : <ChevronRight />}
         </Button>
         {header}
       </Flex>
@@ -198,42 +211,42 @@ export default function ResponseStep({
   if (!codename) return null;
 
   return (
-    <Flex col align="center" gap={sp("xxl")} className={styles.container}>
+    <Flex col align="flex-start" gap={sp("xxxl")}>
       {/* //* Ratings */}
-      <Flex col align="center" gap={sp("sm")}>
-        <Text h3 margin={0}>
+      <Flex col gap={sp("md")}>
+        <Text h4 margin={0}>
           Rating
         </Text>
-        <Text h5 margin={0} intent="secondary">
-          If this game was a movie, it would be ideally rated
-        </Text>
-        <Menu horizontal>
+        <Text>If this game was a movie, it would be ideally rated</Text>
+        <Grid colNum={5} gap={sp("sm")}>
           {RatingOptions.map((r) => (
-            <Menu.Item
+            <Flex
               key={r}
-              className={styles.rating}
-              selected={r === rating}
+              className={cn("ratingOption", { isVoted: r === rating })}
               onClick={handleToggleRating(r)}
             >
-              <Text>{r}</Text>
-            </Menu.Item>
+              <Text bold>{r}</Text>
+            </Flex>
           ))}
-        </Menu>
+        </Grid>
       </Flex>
 
-      <Flex col align="center" width="100%">
-        <Text h3>Topic Boundaries</Text>
-        <Grid colNum={2} gap={sp("sm")} className={styles.topicsContainer}>
+      <Flex col>
+        <Text h4>Topic Boundaries</Text>
+        <Grid gap={sp("sm")} className={styles.topicsContainer}>
           {/* //* Lines */}
           <Flex col className={styles.veils}>
-            <Text h3 color="yellow" margin={0}>
-              ☁️ Veils
-            </Text>
-            <Text color="yellow" fontSize="var(--font-size-sm)">
+            <Flex align="center" gap={sp("xs")}>
+              <AlertTriangle />
+              <Text h4 margin={0}>
+                Veils
+              </Text>
+            </Flex>
+            <Text fontSize="var(--font-size-sm)">
               Topics that are soft limits, okay if veiled or offstage
             </Text>
 
-            <Flex col marginTop={sp("sm")} wrap>
+            <Flex col marginTop={sp("sm")} gap={sp("sm")} wrap>
               {veils.map((v) => (
                 <Topic
                   key={v}
@@ -242,15 +255,22 @@ export default function ResponseStep({
                   onOkay={handleOkay(v)}
                 />
               ))}
+
               {veils.length === 0 && <Text fontStyle="italic">-</Text>}
-              <Flex gap={sp("sm")}>
+
+              <Flex gap={sp("sm")} align="center">
                 <input
+                  className="light"
                   placeholder="Custom veil"
                   value={customVeil}
                   onChange={(e) => setCustomVeil(e.target.value)}
                 />
-                <Button color="yellow" onClick={handleCustomVeil}>
-                  Add
+                <Button
+                  color="yellow"
+                  className={styles.round}
+                  onClick={handleCustomVeil}
+                >
+                  <Plus />
                 </Button>
               </Flex>
             </Flex>
@@ -258,15 +278,18 @@ export default function ResponseStep({
 
           {/* //* Veils */}
           <Flex col className={styles.lines}>
-            <Text h3 color="red" margin={0}>
-              ❌ Lines
-            </Text>
-            <Text color="red" fontSize="var(--font-size-sm)">
+            <Flex align="center" gap={sp("xs")}>
+              <XOctagon />
+              <Text h4 margin={0}>
+                Lines
+              </Text>
+            </Flex>
+            <Text fontSize="var(--font-size-sm)">
               Topics that are hard limits, not okay at all, including in
               reference
             </Text>
 
-            <Flex col marginTop={sp("sm")} wrap>
+            <Flex col marginTop={sp("sm")} gap={sp("sm")} wrap>
               {lines.map((l) => (
                 <Topic
                   key={l}
@@ -276,14 +299,20 @@ export default function ResponseStep({
                 />
               ))}
               {lines.length === 0 && <Text fontStyle="italic">-</Text>}
-              <Flex gap={sp("sm")}>
+
+              <Flex gap={sp("sm")} align="center">
                 <input
+                  className="light"
                   placeholder="Custom line"
                   value={customLine}
                   onChange={(e) => setCustomLine(e.target.value)}
                 />
-                <Button color="red" onClick={handleCustomLine}>
-                  Add
+                <Button
+                  color="red"
+                  className={styles.round}
+                  onClick={handleCustomLine}
+                >
+                  <Plus />
                 </Button>
               </Flex>
             </Flex>
@@ -293,10 +322,8 @@ export default function ResponseStep({
         <Divider lg />
 
         {/* //* Topics to Consider */}
-        <Text h5 intent="secondary">
-          Some Topics to Consider
-        </Text>
-        <Grid colNum={2} gap={sp("sm")}>
+        <Text h6>Some Topics to Consider</Text>
+        <Grid gap={sp("sm")} className={styles.topicsContainer}>
           {[TopicKeys.slice(0, 4), TopicKeys.slice(4)].map((tk, i) => (
             <Flex key={i} col gap={sp("md")}>
               {tk.map((topic) => {
@@ -316,7 +343,9 @@ export default function ResponseStep({
         </Grid>
       </Flex>
 
-      <Button onClick={() => onSave(rating, lines, veils)}>Save</Button>
+      <Button width="100%" onClick={() => onSave(rating, lines, veils)}>
+        Save
+      </Button>
     </Flex>
   );
 }
