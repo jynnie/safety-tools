@@ -44,6 +44,10 @@ button.round {
   border-radius: var(--radius-round);
 }
 
+.fullWidthButton {
+  width: 100%;
+}
+
 .topicsContainer {
   grid-template-columns: 1fr 1fr;
 }
