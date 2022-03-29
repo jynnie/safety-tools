@@ -1,6 +1,7 @@
-import { Box, Button, Flex, Menu, Text } from "juniper-ui/dist";
+import { Button, Flex, Menu, Text } from "juniper-ui/dist";
 import { useState } from "react";
 import { getUniqueCodename } from "lib/codenames";
+import { sp } from "styles/utils";
 
 export default function SignInStep({
   usedCodenames,
@@ -33,8 +34,8 @@ export default function SignInStep({
   }
 
   return (
-    <Flex col align="center" gap="var(--sp-sm)">
-      <Menu horizontal>
+    <Flex col gap={sp("md")} width="100%">
+      <Menu horizontal justifyContent="center">
         <Menu.Item selected={isReturning} onClick={setTab(true)}>
           Returning
         </Menu.Item>
@@ -43,55 +44,56 @@ export default function SignInStep({
         </Menu.Item>
       </Menu>
 
-      <Flex col align="center" gap="var(--sp-sm)">
-        {!isReturning && (
-          <>
-            <input
-              id="codename"
-              placeholder="Codename"
-              readOnly
-              value={newCodename}
-            />
-            <Flex gap="var(--sp-xs)">
-              <Button
-                color="blue"
-                appearance="outline"
-                onClick={handleRandomCodename}
-              >
-                New Codename
-              </Button>
-              <Button onClick={() => onNew(newCodename)}>Register</Button>
-            </Flex>
-          </>
-        )}
-
-        {isReturning && (
-          <Flex col gap="var(--sp-sm)">
-            <input
-              id="codename"
-              placeholder="Codename"
-              value={returningCodename}
-              onChange={(e) => setReturningCodename(e.target.value)}
-            />
-            {!!error && (
-              <Text color="red" intent="danger">
-                {error}
-              </Text>
-            )}
-            <Button onClick={() => handleReturning(returningCodename)}>
-              Sign In
+      {!isReturning && (
+        <>
+          <input
+            id="codename"
+            placeholder="Codename"
+            readOnly
+            value={newCodename}
+          />
+          <Flex gap={sp("sm")} width="100%">
+            <Button
+              color="blue"
+              appearance="outline"
+              onClick={handleRandomCodename}
+              className="flexGrow"
+            >
+              New Codename
+            </Button>
+            <Button className="flexGrow2" onClick={() => onNew(newCodename)}>
+              Register
             </Button>
           </Flex>
-        )}
+        </>
+      )}
 
-        <Text textAlign="center" fontSize="var(--font-size-sm)">
-          Codename is only used for this group.
-          <br />
-          Returning to edit? Use the same codename.
-          <br />
-          Codenames are randomly generated for anonymity.
-        </Text>
-      </Flex>
+      {isReturning && (
+        <>
+          <input
+            id="codename"
+            placeholder="Codename"
+            value={returningCodename}
+            onChange={(e) => setReturningCodename(e.target.value)}
+          />
+          {!!error && (
+            <Text color="red" intent="danger">
+              {error}
+            </Text>
+          )}
+          <Button onClick={() => handleReturning(returningCodename)}>
+            Sign In
+          </Button>
+        </>
+      )}
+
+      <Text fontSize="var(--font-size-md)">
+        Codename is only used for this group.
+        <br />
+        Returning to edit? Use the same codename.
+        <br />
+        Codenames are randomly generated for anonymity.
+      </Text>
     </Flex>
   );
 }

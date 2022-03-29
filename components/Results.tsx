@@ -1,10 +1,10 @@
-import { Box, Flex, Grid, Text } from "juniper-ui/dist";
+import { Flex, Grid, Text } from "juniper-ui/dist";
 import styles from "styles/Results.module.scss";
 import React from "react";
 import { GroupData, Ratings } from "data.model";
 import { sp } from "styles/utils";
 import cn from "classnames";
-import { AlertOctagon, AlertTriangle, XOctagon } from "react-feather";
+import { AlertTriangle, XOctagon } from "react-feather";
 
 const RatingOptions = Object.values(Ratings);
 
