@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, Text } from "juniper-ui/dist";
+import { Box, Button, Flex, Text } from "juniper-ui/dist";
 import { FirebaseContext } from "./_app";
 import { nanoid } from "nanoid";
 import { ref, set } from "firebase/database";
@@ -44,13 +44,11 @@ const NewToolkit: NextPage = () => {
       <main>
         <div className="content">
           <Text h1>Safety Tools</Text>
-          <Text secondary>
+          <Text p secondary>
             Playing a RPG? Quickly set up{" "}
-            <Text span bold>
-              anonymous lines {"&"} veils
-            </Text>{" "}
-            for your group to communicate comfort with various content topics
-            and themes that could show up in play.
+            <Text bold>anonymous lines {"&"} veils</Text> for your group to
+            communicate comfort with various content topics and themes that
+            could show up in play.
           </Text>
         </div>
 
@@ -76,7 +74,7 @@ const NewToolkit: NextPage = () => {
               onChange={(e) => setWarnings(e.target.value)}
             />
             {!!error && (
-              <Text color="red" intent="danger">
+              <Text p color="red" intent="danger">
                 {error}
               </Text>
             )}

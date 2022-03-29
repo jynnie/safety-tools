@@ -1,21 +1,3 @@
-.warnings {
-  width: 100%;
-  padding: var(--sp-md);
-  background-color: var(--gray-lighter);
-  border-radius: var(--radius-rounded);
-}
-
-.rating {
-  border: 1px solid var(--gray-light);
-}
-
-.ratingVote {
-  border-radius: var(--radius-round);
-  width: var(--sp-lg);
-  height: var(--sp-lg);
-  background: var(--gray-light);
-}
-
 .lines,
 .veils {
   flex-grow: 1;

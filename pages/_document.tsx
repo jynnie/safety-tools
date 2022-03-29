@@ -26,6 +26,7 @@ export default class MyDocument extends Document {
         <body>
           <nav>
             <Link href="/">Safety Tools</Link>
+            <Link href="/about">About</Link>
           </nav>
           <Main />
           <NextScript />
