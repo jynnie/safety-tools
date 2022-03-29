@@ -339,7 +339,10 @@ export default function ResponseStep({
         </Grid>
       </Flex>
 
-      <Button width="100%" onClick={() => onSave(rating, lines, veils)}>
+      <Button
+        className={styles.fullWidthButton}
+        onClick={() => onSave(rating, lines, veils)}
+      >
         Save
       </Button>
     </Flex>
