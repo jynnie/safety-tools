@@ -24,11 +24,11 @@
 }
 
 .lines {
-  background: var(--red-lighter);
+  background: var(--line-light);
 }
 
 .veils {
-  background: var(--yellow-lighter);
+  background: var(--veil-light);
 }
 
 .topicContainer {
@@ -55,13 +55,17 @@
   padding: var(--sp-xs);
 }
 
+.topicsContainer {
+  grid-template-columns: 1fr 1fr;
+}
+
 @media only screen and (max-width: 600px) {
-  .container .topicsContainer {
+  .topicsContainer {
     grid-template-columns: 1fr;
     width: 100%;
   }
 
-  .container .topicContainer {
+  .topicContainer {
     width: 100%;
   }
 }

@@ -54,7 +54,7 @@ const NewToolkit: NextPage = () => {
           </Text>
         </div>
 
-        <Flex col gap={sp("md")} className="slide">
+        <Flex col gap={sp("md")} className="content slide">
           <Text h2 margin={0}>
             Get Started
           </Text>

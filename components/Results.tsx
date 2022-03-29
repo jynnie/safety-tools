@@ -3,6 +3,8 @@ import styles from "styles/Results.module.scss";
 import React from "react";
 import { GroupData, Ratings } from "data.model";
 import { sp } from "styles/utils";
+import cn from "classnames";
+import { AlertOctagon, AlertTriangle, XOctagon } from "react-feather";
 
 const RatingOptions = Object.values(Ratings);
 
@@ -15,12 +17,12 @@ export default function Results({
 
   const { warnings, responses } = groupData;
 
-  const ratingMap: { [rating in Ratings]: number[] } = {
-    [Ratings.G]: [],
-    [Ratings.PG]: [],
-    [Ratings["PG-13"]]: [],
-    [Ratings["R"]]: [],
-    [Ratings["NC-17"]]: [],
+  const ratingMap: { [rating in Ratings]: number } = {
+    [Ratings.G]: 0,
+    [Ratings.PG]: 0,
+    [Ratings["PG-13"]]: 0,
+    [Ratings["R"]]: 0,
+    [Ratings["NC-17"]]: 0,
   };
   let allLines: string[] = [];
   let allVeils: string[] = [];
@@ -28,7 +30,7 @@ export default function Results({
   for (const response of Object.values(responses || [])) {
     const { rating, lines, veils } = response;
     if (rating) {
-      ratingMap[rating].push(1);
+      ratingMap[rating] += 1;
     }
     if (!!lines && Array.isArray(lines)) {
       allLines = allLines.concat(lines);
@@ -43,54 +45,56 @@ export default function Results({
   );
 
   return (
-    <Flex col align="center" gap={sp("xxl")} className={styles.container}>
+    <Flex col align="flex-start" gap={sp("xxxl")}>
       {/* //* Warnings */}
       {!!warnings && (
-        <Flex col align="center" gap={sp("sm")} className={styles.warnings}>
-          <Text h3 margin={0}>
-            ⚠️ Content Warnings
+        <Flex col gap={sp("md")}>
+          <Text h4 margin={0}>
+            Content Warnings
           </Text>
           <Text>{warnings}</Text>
         </Flex>
       )}
 
       {/* //* Ratings */}
-      <Flex col align="center" gap={sp("sm")}>
-        <Text h3 margin={0}>
+      <Flex col gap={sp("md")}>
+        <Text h4 margin={0}>
           Rating
         </Text>
-        <Text h5 margin={0} intent="secondary">
-          If this game was a movie, it would be ideally rated
-        </Text>
+        <Text>If this game was a movie, it would be ideally rated</Text>
         <Grid colNum={5} gap={sp("sm")}>
           {RatingOptions.map((r) => (
-            <Flex col key={r} align="center">
-              <Text>{r}</Text>
-              <Flex gap={sp("xs")} justify="center">
-                {ratingMap[r].map((_, i) => (
-                  <Box key={i} className={styles.ratingVote} />
-                ))}
-              </Flex>
+            <Flex
+              className={cn("ratingOption", { isVoted: ratingMap[r] > 0 })}
+              key={r}
+            >
+              <Text bold>{r}</Text>
+              <Text fontSize="var(--font-size-lg)">{ratingMap[r] || "-"}</Text>
             </Flex>
           ))}
         </Grid>
       </Flex>
 
-      <Flex col align="center" width="100%">
-        <Text h3>Topic Boundaries</Text>
-        <Grid colNum={2} gap={sp("sm")} className={styles.topicsContainer}>
+      <Flex col>
+        <Text h4>Topic Boundaries</Text>
+        <Grid gap={sp("md")} className={styles.topicsContainer}>
           {/* //* Lines */}
           <Flex col className={styles.veils}>
-            <Text h3 color="yellow" margin={0}>
-              ☁️ Veils
-            </Text>
-            <Text color="yellow" fontSize="var(--font-size-sm)">
+            <Flex align="center" gap={sp("xs")}>
+              <AlertTriangle />
+              <Text h4 margin={0}>
+                Veils
+              </Text>
+            </Flex>
+            <Text fontSize="var(--font-size-sm)">
               Topics that are soft limits, okay if veiled or offstage
             </Text>
 
-            <Flex col marginTop={sp("sm")} wrap>
+            <Flex col is="ul" marginTop={sp("sm")}>
               {allVeils.map((v) => (
-                <Text key={v}>{v}</Text>
+                <Text key={v} is="li">
+                  {v}
+                </Text>
               ))}
               {allVeils.length === 0 && <Text fontStyle="italic">-</Text>}
             </Flex>
@@ -98,17 +102,22 @@ export default function Results({
 
           {/* //* Veils */}
           <Flex col className={styles.lines}>
-            <Text h3 color="red" margin={0}>
-              ❌ Lines
-            </Text>
-            <Text color="red" fontSize="var(--font-size-sm)">
+            <Flex align="center" gap={sp("xs")}>
+              <XOctagon />
+              <Text h4 margin={0}>
+                Lines
+              </Text>
+            </Flex>
+            <Text fontSize="var(--font-size-sm)">
               Topics that are hard limits, not okay at all, including in
               reference
             </Text>
 
-            <Flex col marginTop={sp("sm")} wrap>
+            <Flex col is="ul" marginTop={sp("sm")}>
               {allLines.map((l) => (
-                <Text key={l}>{l}</Text>
+                <Text key={l} is="li">
+                  {l}
+                </Text>
               ))}
               {allLines.length === 0 && <Text fontStyle="italic">-</Text>}
             </Flex>
