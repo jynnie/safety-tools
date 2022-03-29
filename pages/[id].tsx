@@ -1,8 +1,8 @@
 import {
   Button,
   CopyToClipboardWrapper,
-  Divider,
   Flex,
+  Menu,
   Text,
 } from "juniper-ui/dist";
 import { FirebaseContext } from "./_app";
@@ -10,8 +10,6 @@ import { onValue, ref, set } from "firebase/database";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import styles from "../styles/Group.module.scss";
-import homestyles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
 import type { GroupData, Ratings } from "data.model";
 import Results from "components/Results";
@@ -25,6 +23,7 @@ export default function GroupPage() {
   const { id: rawId } = router.query;
   const groupId = Array.isArray(rawId) ? rawId[0] : rawId;
 
+  const [isCopying, setIsCopying] = useState<boolean>(false);
   const [isFillingOut, setIsFillingOut] = useState<boolean>(false);
   const [groupData, setGroupData] = useState<
     GroupData | typeof NO_GROUP_ERROR | undefined
@@ -51,6 +50,13 @@ export default function GroupPage() {
   const { name, id } = groupData as GroupData;
   const link = `${document.location.protocol}//${document.location.host}/${id}`;
 
+  function handleClickCopy() {
+    setIsCopying(true);
+    setTimeout(() => {
+      setIsCopying(false);
+    }, 2000);
+  }
+
   // FIXME: This feels super insecure
   async function handleSave(
     codename: string,
@@ -74,54 +80,34 @@ export default function GroupPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main className={homestyles.main}>
-        <Flex col className={styles.container}>
-          <Text h2 textAlign="center">
-            {name}
-          </Text>
-          <Text secondary>
-            Anonymously communicate your comfort with various content topics and
-            themes that could show up in play.
-          </Text>
-          <Text secondary>
-            Invite players to fill this out by sending the{" "}
+      <main>
+        <div className="content">
+          <Text h2>{name}</Text>
+          <Menu horizontal>
+            <Menu.Item
+              selected={isFillingOut}
+              onClick={() => setIsFillingOut(!isFillingOut)}
+            >
+              Your Preferences
+            </Menu.Item>
             <CopyToClipboardWrapper value={link}>
-              <Text is="span" color="blue" className={styles.groupName}>
-                link
-              </Text>
-            </CopyToClipboardWrapper>{" "}
-            to this page.
-          </Text>
-          <Divider xl />
+              <Menu.Item onClick={handleClickCopy}>
+                {isCopying ? "Copied" : "Link"}
+              </Menu.Item>
+            </CopyToClipboardWrapper>
+          </Menu>
+        </div>
 
-          <Flex col gap="var(--sp-xxl)" width="100%" align="center">
-            {!isFillingOut && (
-              <>
-                <Button onClick={() => setIsFillingOut(true)}>
-                  Fill Out Your Preferences
-                </Button>
-                <Results groupData={groupData as GroupData} />
-              </>
-            )}
+        <Flex className="content slide" col gap="var(--sp-xxl)">
+          {!isFillingOut && <Results groupData={groupData as GroupData} />}
 
-            {isFillingOut && (
-              <>
-                <Button
-                  intent="secondary"
-                  onClick={() => setIsFillingOut(false)}
-                >
-                  Back
-                </Button>
-                <ResponseForm
-                  {...{ groupData: groupData as GroupData, onSave: handleSave }}
-                />
-              </>
-            )}
-          </Flex>
+          {isFillingOut && (
+            <ResponseForm
+              {...{ groupData: groupData as GroupData, onSave: handleSave }}
+            />
+          )}
         </Flex>
       </main>
-
-      <footer className={homestyles.footer}>Powered by 哪吒</footer>
     </>
   );
 }
