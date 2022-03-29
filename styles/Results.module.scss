@@ -39,7 +39,7 @@
   padding: 0 var(--sp-xs);
 
   button {
-    opacity: 0.3;
+    opacity: 0.5;
     &:hover {
       opacity: 1;
     }
@@ -47,12 +47,19 @@
 
   &:hover {
     border-radius: var(--radius-rounded);
-    background: var(--gray-lighter);
+    background: var(--grey-lighter);
   }
 }
 
 .minimal {
   padding: var(--sp-xs);
+}
+
+button.round {
+  width: var(--sp-xxl);
+  height: var(--sp-xxl);
+  padding: 0;
+  border-radius: var(--radius-round);
 }
 
 .topicsContainer {
