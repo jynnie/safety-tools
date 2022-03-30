@@ -8,6 +8,10 @@ import { AlertTriangle, XOctagon } from "react-feather";
 
 const RatingOptions = Object.values(Ratings);
 
+function capitalizeFirstWord(sentence: string): string {
+  return sentence[0].toUpperCase() + sentence.slice(1);
+}
+
 export default function Results({
   groupData,
 }: {
@@ -24,8 +28,8 @@ export default function Results({
     [Ratings["R"]]: 0,
     [Ratings["NC-17"]]: 0,
   };
-  let allLines: string[] = [];
-  let allVeils: string[] = [];
+  let allLines = new Set<string>([]);
+  let allVeils = new Set<string>([]);
 
   for (const response of Object.values(responses || [])) {
     const { rating, lines, veils } = response;
@@ -33,16 +37,17 @@ export default function Results({
       ratingMap[rating] += 1;
     }
     if (!!lines && Array.isArray(lines)) {
-      allLines = allLines.concat(lines);
+      for (const line of lines) {
+        allLines.add(capitalizeFirstWord(line));
+      }
     }
     if (!!veils && Array.isArray(veils)) {
-      allVeils = allVeils.concat(veils);
+      for (const veil of veils) {
+        if (allLines.has(veil)) continue;
+        allVeils.add(capitalizeFirstWord(veil));
+      }
     }
   }
-  // If a veil is already a line, don't show it
-  allVeils = allVeils.filter(
-    (v) => !allLines.find((l) => l.toLowerCase() === v.toLowerCase()),
-  );
 
   return (
     <Flex col align="flex-start" gap={sp("xxxl")}>
@@ -77,7 +82,7 @@ export default function Results({
         </Grid>
       </Flex>
 
-      <Flex col>
+      <Flex col width="100%">
         <Text h4>Topic Boundaries</Text>
         <Grid gap={sp("md")} className={styles.topicsContainer}>
           {/* //* Lines */}
@@ -93,12 +98,12 @@ export default function Results({
             </Text>
 
             <Flex col is="ul" marginTop={sp("sm")}>
-              {allVeils.map((v) => (
+              {Array.from(allVeils).map((v) => (
                 <Text key={v} is="li">
                   {v}
                 </Text>
               ))}
-              {allVeils.length === 0 && <Text fontStyle="italic">-</Text>}
+              {allVeils.size === 0 && <Text fontStyle="italic">-</Text>}
             </Flex>
           </Flex>
 
@@ -116,12 +121,12 @@ export default function Results({
             </Text>
 
             <Flex col is="ul" marginTop={sp("sm")}>
-              {allLines.map((l) => (
+              {Array.from(allLines).map((l) => (
                 <Text key={l} is="li">
                   {l}
                 </Text>
               ))}
-              {allLines.length === 0 && <Text fontStyle="italic">-</Text>}
+              {allLines.size === 0 && <Text fontStyle="italic">-</Text>}
             </Flex>
           </Flex>
         </Grid>

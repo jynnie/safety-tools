@@ -227,7 +227,7 @@ export default function ResponseStep({
         </Grid>
       </Flex>
 
-      <Flex col>
+      <Flex col width="100%">
         <Text h4>Topic Boundaries</Text>
         <Grid gap={sp("sm")} className={styles.topicsContainer}>
           {/* //* Lines */}
