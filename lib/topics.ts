@@ -49,6 +49,4 @@ export const TOPICS = {
   ],
 };
 
-export const TOPICS_CLOSED_BY_DEFAULT = ["Romance", "Sex"];
-
 export default TOPICS;

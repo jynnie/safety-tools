@@ -4,7 +4,7 @@ import { GroupData, Ratings } from "data.model";
 import { useEffect } from "react";
 import styles from "styles/Results.module.scss";
 import { sp } from "styles/utils";
-import { TOPICS, TOPICS_CLOSED_BY_DEFAULT } from "lib/topics";
+import { TOPICS } from "lib/topics";
 import {
   AlertTriangle,
   CheckCircle,
@@ -128,7 +128,7 @@ function MajorTopic({
           onVeil={handleVeil?.(topic)}
         />
       }
-      defaultShow={!TOPICS_CLOSED_BY_DEFAULT.includes(topic)}
+      defaultShow={false}
     >
       {(TOPICS as any)[topic].map((t: string) => {
         if (veils.includes(t) || lines.includes(t)) return null;
@@ -320,7 +320,7 @@ export default function ResponseStep({
         {/* //* Topics to Consider */}
         <Text h6>Some Topics to Consider</Text>
         <Grid gap={sp("sm")} className={styles.topicsContainer}>
-          {[TopicKeys.slice(0, 4), TopicKeys.slice(4)].map((tk, i) => (
+          {[TopicKeys.slice(0, 3), TopicKeys.slice(3)].map((tk, i) => (
             <Flex key={i} col gap={sp("md")}>
               {tk.map((topic) => {
                 return (
