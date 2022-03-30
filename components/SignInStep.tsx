@@ -1,26 +1,22 @@
 import { Button, Flex, Menu, Text } from "juniper-ui/dist";
 import { useState } from "react";
-import { getUniqueCodename } from "lib/codenames";
+import { getCodename } from "lib/codenames";
 import { sp } from "styles/utils";
 
 export default function SignInStep({
-  usedCodenames,
   onNew,
   onReturning,
 }: {
-  usedCodenames: string[];
   onNew: (codename: string) => void;
-  onReturning: (codename: string) => boolean;
+  onReturning: (codename: string) => Promise<boolean>;
 }) {
   const [isReturning, setIsReturning] = useState<boolean>(true);
   const [returningCodename, setReturningCodename] = useState<string>("");
-  const [newCodename, setNewCodename] = useState<string>(
-    getUniqueCodename(usedCodenames),
-  );
+  const [newCodename, setNewCodename] = useState<string>(getCodename());
   const [error, setError] = useState<null | string>(null);
 
   function handleRandomCodename() {
-    setNewCodename(getUniqueCodename(usedCodenames));
+    setNewCodename(getCodename());
   }
 
   const setTab = (value: boolean) => () => {
@@ -28,8 +24,8 @@ export default function SignInStep({
     setError(null);
   };
 
-  function handleReturning(codename: string) {
-    const res = onReturning(codename);
+  async function handleReturning(codename: string) {
+    const res = await onReturning(codename);
     if (!res) setError("No one here goes by that");
   }
 

@@ -1,15 +1,14 @@
 import { CopyToClipboardWrapper, Flex, Menu, Text } from "juniper-ui/dist";
 import { FirebaseContext } from "./_app";
 import { onValue, ref, set } from "firebase/database";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { GroupData, Ratings } from "data.model";
 import Results from "components/Results";
 import ResponseForm from "components/ResponseForm";
-
-const NO_GROUP_ERROR = Error("No group found from id");
+import useSWR from "swr";
 
 export default function GroupPage() {
   const db = useContext(FirebaseContext).db;
@@ -19,21 +18,31 @@ export default function GroupPage() {
 
   const [isCopying, setIsCopying] = useState<boolean>(false);
   const [isFillingOut, setIsFillingOut] = useState<boolean>(false);
-  const [groupData, setGroupData] = useState<
-    GroupData | typeof NO_GROUP_ERROR | undefined
-  >(undefined);
+
+  const {
+    data: groupData,
+    error,
+    mutate,
+  } = useSWR(`/api/groupData/${groupId}`, (...args) =>
+    fetch(...args).then((res) => res.json()),
+  );
 
   useEffect(() => {
-    onValue(ref(db, groupId), (snapshot) => {
-      const rawValue = snapshot.val() || NO_GROUP_ERROR;
-      setGroupData(rawValue);
+    /**
+     * Whenever the lastUpdate value changes, we revalidate
+     * our groupData via api. Enabling us to have the latest
+     * data when Firebase stuff changes AND having anonymized
+     * data from our api.
+     */
+    onValue(ref(db, `${groupId}/lastUpdate`), () => {
+      mutate({ ...groupData });
     });
-  }, [db, groupId]);
+  }, [mutate, groupId, db]);
 
-  if (groupData === NO_GROUP_ERROR) {
+  if (!!error) {
     router.push("/");
-    return;
-  } else if (groupData === undefined) {
+    return null;
+  } else if (!groupData) {
     return (
       <Flex width="100vw" height="100vh" center>
         Loading...
@@ -51,7 +60,6 @@ export default function GroupPage() {
     }, 2000);
   }
 
-  // FIXME: This feels super insecure
   async function handleSave(
     codename: string,
     rating: Ratings | null,
@@ -63,7 +71,7 @@ export default function GroupPage() {
       lines,
       veils,
     });
-    await set(ref(db, `${groupId}/codenames/${codename}`), codename);
+    await set(ref(db, `${groupId}/lastUpdate`), new Date().getTime());
     setIsFillingOut(false);
   }
 

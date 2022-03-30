@@ -20,22 +20,44 @@ export default function ResponseForm({
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [codename, setCodename] = useState<string>("");
 
-  // FIXME: This feels super insecure
-  const usedCodenames = Object.values(groupData?.codenames || []);
-
-  function handleNew(codename: string) {
-    setCodename(codename);
-    setIsLoggedIn(true);
+  async function handleNew(codename: string) {
+    await fetch(`/api/newCodename`, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        groupId: groupData.id,
+        codename,
+      }),
+    })
+      .then((response) => response.ok)
+      .then((isOk) => {
+        if (isOk) {
+          setCodename(codename);
+          setIsLoggedIn(true);
+        } else {
+          console.error("Unable to make a new codename.");
+        }
+      });
   }
 
-  function handleReturning(codename: string) {
-    if (usedCodenames.includes(codename)) {
-      setCodename(codename);
-      setIsLoggedIn(true);
-      return true;
-    } else {
-      return false;
-    }
+  async function handleReturning(codename: string) {
+    return fetch(
+      `/api/checkCodename?groupId=${groupData.id}&codename=${codename}`,
+    ).then(async (response) => {
+      if (!response.ok) return false;
+
+      const { isValid } = await response.json();
+      if (!!isValid) {
+        setCodename(codename);
+        setIsLoggedIn(true);
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   function handleSave(
@@ -51,12 +73,12 @@ export default function ResponseForm({
   return (
     <Flex col align="center" gap={sp("sm")}>
       {!isLoggedIn && (
-        <SignInStep
-          {...{ usedCodenames, onNew: handleNew, onReturning: handleReturning }}
-        />
+        <SignInStep {...{ onNew: handleNew, onReturning: handleReturning }} />
       )}
       {!!isLoggedIn && (
-        <ResponseStep {...{ groupData, codename, onSave: handleSave }} />
+        <ResponseStep
+          {...{ groupId: groupData.id, codename, onSave: handleSave }}
+        />
       )}
     </Flex>
   );

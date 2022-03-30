@@ -14,6 +14,7 @@ import {
   XOctagon,
 } from "react-feather";
 import cn from "classnames";
+import useSWR from "swr";
 
 const RatingOptions = Object.values(Ratings);
 const TopicKeys = Object.keys(TOPICS);
@@ -147,11 +148,11 @@ function MajorTopic({
 
 //*
 export default function ResponseStep({
-  groupData,
+  groupId,
   codename,
   onSave,
 }: {
-  groupData: GroupData;
+  groupId: string;
   codename: string;
   onSave: (rating: Ratings | null, lines: string[], veils: string[]) => void;
 }) {
@@ -161,14 +162,18 @@ export default function ResponseStep({
   const [customLine, setCustomLine] = useState<string>("");
   const [customVeil, setCustomVeil] = useState<string>("");
 
-  useEffect(() => {
-    const response = groupData?.responses?.[codename];
-    if (!response) return;
+  const { data } = useSWR(
+    `/api/groupResponse?groupId=${groupId}&codename=${codename}`,
+    (...args) => fetch(...args).then((res) => res.json()),
+  );
 
-    setRating(response.rating ?? null);
-    setLines(Object.values(response.lines || []));
-    setVeils(Object.values(response.veils || []));
-  }, []);
+  useEffect(() => {
+    if (!data) return;
+
+    setRating(data.rating ?? null);
+    setLines(Object.values(data.lines || []));
+    setVeils(Object.values(data.veils || []));
+  }, [data]);
 
   const handleToggleRating = (r: Ratings) => () => {
     if (rating === r) setRating(null);
