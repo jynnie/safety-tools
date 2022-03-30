@@ -26,11 +26,9 @@ const NewToolkit: NextPage = () => {
       return;
     }
 
-    await set(ref(db, id), {
-      id,
-      name,
-      warnings,
-    });
+    await set(ref(db, `${id}/id`), id);
+    await set(ref(db, `${id}/name`), name);
+    await set(ref(db, `${id}/warnings`), warnings);
     router.push(`/${id}`);
   }
 
