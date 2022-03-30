@@ -32,7 +32,7 @@ function Topic({
   onLine?: () => void;
 }) {
   return (
-    <Flex flexGrow={1} className={styles.topic} align="center">
+    <Flex flexGrow={1} className={styles.topic}>
       <Text flexGrow={1} bold={!!isHeader}>
         {topicName}
       </Text>

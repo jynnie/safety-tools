@@ -2,6 +2,12 @@ import { Text } from "juniper-ui/dist";
 import Head from "next/head";
 import type { NextPage } from "next";
 
+const SAFETY_TOOLKIT_LINK =
+  "https://drive.google.com/drive/folders/114jRmhzBpdqkAlhmveis0nmW73qkAZCj";
+
+const RPG_CONSENT_CHECKLIST_LINK =
+  "https://mcpl.info/sites/default/files/images/consent-in-gaming-form-fillable-checklist-2019-09-13.pdf";
+
 const About: NextPage = () => {
   return (
     <>
@@ -11,7 +17,7 @@ const About: NextPage = () => {
       </Head>
 
       <main>
-        <div className="content">
+        <div className="about content">
           <Text h1>Safety Tools</Text>
           <Text p secondary>
             Safety Tools helps you quickly and easily set up anonymous lines{" "}
@@ -23,7 +29,20 @@ const About: NextPage = () => {
             players to consider.
           </Text>
           <Text p secondary>
-            Based off the RPG Safety Toolkit {"&"} the RPG Consent Checklist.
+            Based off the{" "}
+            <a href={SAFETY_TOOLKIT_LINK} target="_blank" rel="noreferrer">
+              RPG Safety Toolkit
+            </a>{" "}
+            {"&"} the{" "}
+            <a
+              href={RPG_CONSENT_CHECKLIST_LINK}
+              target="_blank"
+              rel="noreferrer"
+            >
+              RPG Consent Checklist
+            </a>
+            . Credits to the wonderful folks who have worked on these and the
+            many other safety tools out there.
           </Text>
         </div>
       </main>

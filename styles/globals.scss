@@ -154,6 +154,13 @@ a:hover {
   flex-grow: 2;
 }
 
+.about a {
+  color: #5f81bc;
+  &:hover {
+    color: var(--blue);
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .slide {
     min-height: calc(70vh + var(--sp-md));
