@@ -82,7 +82,7 @@ export default function GroupPage() {
               selected={isFillingOut}
               onClick={() => setIsFillingOut(!isFillingOut)}
             >
-              Your Preferences
+              Add Preferences
             </Menu.Item>
             <CopyToClipboardWrapper value={link}>
               <Menu.Item onClick={handleClickCopy}>
