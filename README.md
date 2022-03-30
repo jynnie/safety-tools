@@ -1,34 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RPG Safety Tools
 
-## Getting Started
+RPG Safety Tools ([safety.vercel.app](https://safety.vercel/app)) is an app for play groups to quickly set up anonymous lines & veils. Create a group and share a link. Anonymity is enforced via codenames.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
+* Fast to get started, just name your play group and hit go
+* Share with players via unique link
+* Anonymously fill out lines & veils
+* Suggests topics to consider for lines & veils (options from the RPG Consent Checklist)
+
+## 🔨 Development
+
+RPG Safety Tools is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+```
+$ yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+$ yarn dev
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 📄 License
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[MIT](https://github.com/jynnie/safety-tools/blob/main/LICENSE) © [jynnie](https://github.com/jynnie/)
